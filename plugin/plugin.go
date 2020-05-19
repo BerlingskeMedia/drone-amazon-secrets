@@ -12,6 +12,7 @@ import (
 
 	"github.com/drone/drone-go/drone"
 	"github.com/drone/drone-go/plugin/secret"
+	"github.com/sirupsen/logrus"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/aws/aws-sdk-go/aws"
