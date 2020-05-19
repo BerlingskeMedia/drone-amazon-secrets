@@ -1,4 +1,4 @@
-module github.com/drone/drone-amazon-secrets
+module github.com/BerlingskeMedia/drone-amazon-secrets
 
 go 1.12
 
