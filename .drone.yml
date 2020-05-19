@@ -7,7 +7,13 @@ platform:
   arch: amd64
 
 steps:
-- name: publish storybook image
+- name: test
+  image: golang:1.12
+  commands:
+  - go test -v -cover ./...
+  - CGO_ENABLED=0 go build -o release/linux/amd64/drone-amazon-secrets github.com/BerlingskeMedia/drone-amazon-secrets/tree/master/cmd/drone-amazon-secrets
+
+- name: publish amazon-secrets image
   image: plugins/ecr
   settings:
     access_key:
