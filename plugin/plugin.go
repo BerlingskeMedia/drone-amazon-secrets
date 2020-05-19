@@ -40,7 +40,8 @@ func (p *plugin) Find(ctx context.Context, req *secret.Request) (*drone.Secret, 
 	// to retrieve the secret at the requested path.
 	params, err := p.find(req.Path)
 	if err != nil {
-		return nil, errors.New("secret not found")
+		logrus.Infof("secret retrieve error: %v", err)
+		return nil, fmt.Errorf("secret not found: %v", err.Error())
 	}
 	value := params[req.Name]
 

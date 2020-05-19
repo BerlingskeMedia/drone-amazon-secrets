@@ -7,21 +7,17 @@ platform:
   arch: amd64
 
 steps:
-- name: test
-  image: golang:1.12
-  commands:
-  - go test -v -cover ./...
-  - CGO_ENABLED=0 go build -o release/linux/amd64/drone-amazon-secrets github.com/drone/drone-amazon-secrets/cmd/drone-amazon-secrets
-
-- name: publish
-  image: plugins/docker
+- name: publish storybook image
+  image: plugins/ecr
   settings:
-    auto_tag: true
-    dockerfile: docker/Dockerfile
-    password:
-      from_secret: docker_password
+    access_key:
+      from_secret: aws_access_key
+    secret_key:
+      from_secret: aws_access_key_secret
+    region: eu-west-1
     repo: drone/amazon-secrets
-    username:
-      from_secret: docker_username
-
-...
+    registry: 815296035528.dkr.ecr.eu-west-1.amazonaws.com
+    dockerfile: docker/Dockerfile
+    tags:
+      - latest
+      - ${CI_COMMIT_SHA}
